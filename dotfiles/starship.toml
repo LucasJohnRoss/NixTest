@@ -1,0 +1,100 @@
+add_newline = false
+
+command_timeout = 1000
+right_format = """$time"""
+
+[time]
+disabled = false
+format = "[$time](#ffffff)"
+
+[character]
+success_symbol = "[](#ffffff)"
+error_symbol = "[✗](#ffffff)"
+
+[cmd_duration]
+format = "[](fg:black bg:#ffffff)[$duration](bg:#ffffff fg:black)[](fg:#ffffff)"
+
+[username]
+format = "[](fg:black bg:#ffffff)[$user](bg:#ffffff fg:black)[](fg:#ffffff)"
+
+[directory]
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+format = "[](fg:black bg:#ffffff)[$path[$read_only](bg:#ffffff fg:black)](bg:#ffffff fg:black)[](fg:#ffffff)"
+read_only = " "
+
+[docker_context]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$context](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[git_branch]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[ $symbol$branch](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[git_commit]
+tag_symbol = '  '
+format = "\b[ ](bg:#ffffff)[\\($hash$tag\\)](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[git_state]
+format = "\b[ ](bg:#ffffff)[ \\($state( $progress_current/$progress_total)\\)](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[git_status]
+format = "(\b[ ](bg:#ffffff fg:black)$conflicted$staged$modified$renamed$deleted$untracked$stashed$ahead_behind[](fg:#ffffff))"
+conflicted = "[ ](bold fg:black bg:#ffffff)[ ${count} ](fg:black bg:#ffffff)"
+staged = "[$count ](fg:black bg:#ffffff)"
+modified = "[${count} ](fg:black bg:#ffffff)"
+renamed = "[${count} ](fg:black bg:#ffffff)"
+deleted = "[${count} ](fg:black bg:#ffffff)"
+untracked = "[?${count} ](fg:black bg:#ffffff)"
+stashed = "[${count} ](fg:black bg:#ffffff)"
+ahead = "[${count} ](fg:#523333 bg:#ffffff)"
+behind = "[${count} ](fg:black bg:#ffffff)"
+diverged = "[ ](fg:black bg:#ffffff)[ נּ ](fg:black bg:#ffffff)[${ahead_count} ](fg:black bg:#ffffff)[${behind_count} ](fg:black bg:#ffffff)"
+
+[golang]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[java]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[kubernetes]
+format = "[](fg:black bg:#ffffff)[$symbol$context](fg:black bg:#ffffff)[](fg:#ffffff)"
+disabled = false
+
+[nodejs]
+format = "[](fg:black bg:#ffffff)[$symbol($version)](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[php]
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[python]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$pyenv_prefix$version$virtualenv](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[ruby]
+symbol = " "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[rust]
+symbol = " 󱘗 "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[scala]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[terraform]
+format = "[](fg:black bg:#ffffff)[$symbol$workspace](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[vagrant]
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[lua]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"
+
+[c]
+symbol = "  "
+format = "[](fg:black bg:#ffffff)[$symbol$version](fg:black bg:#ffffff)[](fg:#ffffff)"

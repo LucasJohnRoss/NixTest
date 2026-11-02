@@ -1,0 +1,4 @@
+[[mgr.prepend_keymap]]
+on   = "<T>"
+run  = 'shell "$SHELL" --block'
+desc = "Drop to a shell here"

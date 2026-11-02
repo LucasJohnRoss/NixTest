@@ -1,0 +1,14 @@
+[mgr]
+ratio = [2, 4, 4]
+sort_by = "size"
+sort_reverse = true
+linemode = "size"
+show_hidden = true
+
+[preview]
+wrap = "yes"
+
+[opener]
+edit = [
+  { run = 'nvim %s', desc = "Open Neovim", block = true, for = "unix" }
+]

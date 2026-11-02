@@ -1,0 +1,79 @@
+# =============================================================================
+#  NOCTALIA SHELL — ~/.config/noctalia/config.toml
+#  Linked from ~/nixos-config/dotfiles/noctalia by Home Manager (home.nix §3),
+#  so edits here apply live (Noctalia hot-reloads) and the file works the same
+#  on non-NixOS machines.
+#
+#  Only settings that differ from Noctalia's defaults, or that replace
+#  something from the old stack, are listed. Every default is in example.toml
+#  in the Noctalia repo and at https://docs.noctalia.dev/noctalia/configuration/
+#
+#  Changes made in the Settings window (Super+comma) go to
+#  ~/.local/state/noctalia/settings.toml, which wins over this file. Copy
+#  anything you want to keep from there into here; delete that file to reset.
+# =============================================================================
+
+[shell]
+# Replaces hyprpolkitagent: Noctalia registers as the polkit authentication
+# agent (password prompts for virt-manager, Proton VPN, pkexec...).
+# Don't run a second agent alongside it.
+polkit_agent = true
+
+# Noctalia runs as a systemd user service (configuration.nix), so apps opened
+# from its launcher/dock run as their own transient systemd units: they
+# survive a restart of the shell and get their own cgroup.
+# (Ignored, with a log warning, when Noctalia isn't started by systemd/uwsm.)
+launch_apps_as_systemd_services = true
+
+# Clipboard history (replaces cliphist): on by default, Super+Shift+V opens it.
+# clipboard_enabled = true
+
+[shell.screenshot]
+# Replaces hyprshot. Your hyprland.lua binds pick clipboard vs file per call;
+# this is where saved screenshots go (same folder hyprshot used).
+directory = "~/Images/Screenshots"
+
+# ── Wallpaper (replaces hyprpaper / linux-wallpaper-engine) ─────────────────
+[wallpaper]
+enabled = true
+# Folder the wallpaper picker and rotation read from. Put images here.
+# Empty would mean the XDG Pictures folder (~/Pictures without xdg-user-dirs).
+directory = "~/Images/Wallpapers"
+
+# [wallpaper.default]
+# path = "~/Images/Wallpapers/your-favourite.png"   # first wallpaper on a fresh start
+
+# [wallpaper.automation]
+# enabled = true            # rotate wallpapers
+# interval_seconds = 1800
+
+# ── Lock screen (replaces hyprlock) ─────────────────────────────────────────
+# Authenticates with the system `login` PAM service — no extra setup on NixOS.
+[lockscreen]
+enabled = true
+# Lock on logind PrepareForSleep, i.e. before every suspend/hibernate,
+# including closing the lid. This is why hyprland.lua has no lid bind.
+lock_before_suspend = true
+
+# ── Idle (replaces hypridle) ────────────────────────────────────────────────
+# Uses ext-idle-notify; respects idle inhibitors (Noctalia's caffeine toggle,
+# and browsers/players inhibiting over D-Bus during video playback).
+[idle]
+behavior_order = ["lock", "screen-off", "suspend"]
+pre_action_fade_seconds = 2.0   # dim for 2 s before acting; any input cancels
+
+[idle.behavior.lock]
+timeout = 600                   # 10 min → lock
+action = "lock"
+enabled = true
+
+[idle.behavior.screen-off]
+timeout = 660                   # 11 min → screens off (back on when you return)
+action = "screen_off"
+locked_timeout = 30             # if you locked manually, blank after 30 s
+enabled = true
+
+[idle.behavior.suspend]
+timeout = 1800                  # 30 min → lock and suspend
+action = "lock_and_suspend"
+enabled = false                 # set true to suspend on idle (lid close already suspends)

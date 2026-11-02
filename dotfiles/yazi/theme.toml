@@ -1,0 +1,231 @@
+# : Manager {{{
+[mgr]
+cwd = { fg = "#00e5ff" }
+
+# Find — mirrors Search / CurSearch in the nvim scheme
+find_keyword  = { fg = "#101116", bg = "#faf945", bold = true }
+find_position = { fg = "#ff2bd6", bg = "reset", bold = true, italic = true }
+
+# Symlink
+symlink_target = { fg = "#7a6b88", italic = true }
+
+# Marker
+marker_copied   = { fg = "#2fe86b", bg = "#2fe86b" }
+marker_cut      = { fg = "#ff5f1f", bg = "#ff5f1f" }
+marker_marked   = { fg = "#00e5ff", bg = "#00e5ff" }
+marker_selected = { fg = "#faf945", bg = "#faf945" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#101116", bg = "#2fe86b", bold = true }
+count_cut      = { fg = "#101116", bg = "#ff5f1f", bold = true }
+count_selected = { fg = "#101116", bg = "#faf945", bold = true }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#4a3a66" }
+
+# Preview syntax highlighting. Empty = follow the terminal's dark/light mode
+# with Yazi's built-in theme. See the note at the bottom of this file.
+syntect_theme = ""
+
+# : }}}
+
+# : Tabs {{{
+
+[tabs]
+active   = { fg = "#101116", bg = "#ff2bd6", bold = true }
+inactive = { fg = "#7a6b88", bg = "#1c1d26" }
+
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+# : }}}
+
+# : Mode {{{
+
+[mode]
+normal_main = { fg = "#101116", bg = "#00b0ff", bold = true }
+normal_alt  = { fg = "#00b0ff", bg = "#1c1d26" }
+
+select_main = { fg = "#101116", bg = "#ff2bd6", bold = true }
+select_alt  = { fg = "#ff2bd6", bg = "#1c1d26" }
+
+unset_main  = { fg = "#101116", bg = "#ff5f1f", bold = true }
+unset_alt   = { fg = "#ff5f1f", bg = "#1c1d26" }
+
+# : }}}
+
+# : Indicator of hovered file {{{
+
+# Left reversed on purpose: the hovered row becomes a solid block in whatever
+# colour that file already is, so the filetype hue survives the highlight.
+[indicator]
+parent  = { reversed = true }
+current = { reversed = true, bold = true }
+preview = { bg = "#1c1d26" }
+padding = { open = "", close = "" }
+
+# : }}}
+
+# : Status bar {{{
+
+[status]
+overall   = { bg = "#16171e" }
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+# Permissions
+perm_sep   = { fg = "#7a6b88" }
+perm_type  = { fg = "#00b0ff" }
+perm_read  = { fg = "#faf945" }
+perm_write = { fg = "#ff5f1f" }
+perm_exec  = { fg = "#2fe86b" }
+
+# Progress
+progress_label  = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#2fe86b", bg = "#1c1d26" }
+progress_error  = { fg = "#101116", bg = "#ff5f1f" }
+
+# : }}}
+
+# : Which {{{
+
+[which]
+border          = { fg = "#4a3a66" }
+cols            = 3
+mask            = { bg = "#16171e" }
+cand            = { fg = "#00e5ff" }
+rest            = { fg = "#7a6b88" }
+desc            = { fg = "#ff7aec" }
+separator       = "  "
+separator_style = { fg = "#4a3a66" }
+
+# : }}}
+
+# : Confirmation {{{
+
+[confirm]
+border = { fg = "#ff2bd6" }
+title  = { fg = "#ff2bd6", bold = true }
+body   = { fg = "#c8c2d0" }
+list   = { fg = "#5cd6ff" }
+btn_yes = { fg = "#101116", bg = "#2fe86b", bold = true }
+btn_no  = { fg = "#c06a80" }
+btn_labels = [ " [Y]es ", " (N)o " ]
+
+# : }}}
+
+# : Spotter {{{
+
+[spot]
+border = { fg = "#4a3a66" }
+title  = { fg = "#ff2bd6", bold = true }
+
+tbl_col  = { fg = "#00b0ff", bold = true }
+tbl_cell = { fg = "#101116", bg = "#faf945" }
+
+# : }}}
+
+# : Notification {{{
+
+[notify]
+title_info  = { fg = "#2fe86b" }
+title_warn  = { fg = "#faf945" }
+title_error = { fg = "#ff5f1f" }
+
+icon_info  = ""
+icon_warn  = ""
+icon_error = ""
+
+# : }}}
+
+# : Picker {{{
+
+[pick]
+border   = { fg = "#4a3a66" }
+active   = { fg = "#ff2bd6", bold = true }
+inactive = { fg = "#c8c2d0" }
+
+# : }}}
+
+# : Input {{{
+
+[input]
+border   = { fg = "#00b0ff" }
+title    = { fg = "#c8c2d0" }
+value    = { fg = "#ffffff" }
+selected = { fg = "#ffffff", bg = "#33194a" }
+
+# : }}}
+
+# : Completion {{{
+
+[cmp]
+border   = { fg = "#4a3a66" }
+active   = { fg = "#ffffff", bg = "#33194a", bold = true }
+inactive = { fg = "#c8c2d0" }
+
+icon_file    = ""
+icon_folder  = ""
+icon_command = ""
+
+# : }}}
+
+# : Task manager {{{
+
+[tasks]
+border  = { fg = "#4a3a66" }
+title   = { fg = "#c8c2d0" }
+hovered = { fg = "#ff2bd6", bold = true, underline = true }
+
+# : }}}
+
+# : Help menu {{{
+
+[help]
+border  = { fg = "#4a3a66" }
+chord   = { fg = "#00e5ff" }
+action  = { fg = "#c8c2d0" }
+hovered = { fg = "#ffffff", bg = "#33194a", bold = true }
+
+# : }}}
+
+# : File-specific styles {{{
+
+# This array REPLACES the preset rules wholesale, so the full ordered set is
+# reproduced here. Order matters — first match wins. Use prepend_rules /
+# append_rules instead if you'd rather extend the defaults.
+#
+# Note the deliberate absence of a catch-all for regular files: they fall
+# through unstyled and pick up the terminal foreground, i.e. crimson.
+[filetype]
+rules = [
+	# Image
+	{ mime = "**/image/*", fg = "#faf945" },
+
+	# Media
+	{ mime = "**/{audio,video}/*", fg = "#ff2bd6" },
+
+	# Archive
+	{ mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#ff5f1f" },
+
+	# Document
+	{ mime = "**/application/{pdf,doc,rtf}", fg = "#5cd6ff" },
+
+	# Virtual file system
+	{ mime = "vfs/{absent,stale}", fg = "#7a6b88" },
+
+	# Special file
+	{ url = "*", is = "orphan", fg = "#101116", bg = "#ff5f1f" },
+	{ url = "*", is = "exec"  , fg = "#2fe86b" },
+
+	# Dummy file
+	{ url = "*" , is = "dummy", fg = "#101116", bg = "#ff5f1f" },
+	{ url = "*/", is = "dummy", fg = "#101116", bg = "#ff5f1f" },
+
+	# Fallback: directories
+	{ url = "*/", fg = "#00b0ff" }
+]
+
+# : }}}
