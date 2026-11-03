@@ -1,79 +1,312 @@
-# =============================================================================
-#  NOCTALIA SHELL — ~/.config/noctalia/config.toml
-#  Linked from ~/nixos-config/dotfiles/noctalia by Home Manager (home.nix §3),
-#  so edits here apply live (Noctalia hot-reloads) and the file works the same
-#  on non-NixOS machines.
-#
-#  Only settings that differ from Noctalia's defaults, or that replace
-#  something from the old stack, are listed. Every default is in example.toml
-#  in the Noctalia repo and at https://docs.noctalia.dev/noctalia/configuration/
-#
-#  Changes made in the Settings window (Super+comma) go to
-#  ~/.local/state/noctalia/settings.toml, which wins over this file. Copy
-#  anything you want to keep from there into here; delete that file to reset.
-# =============================================================================
+[audio]
+enable_overdrive = true
+
+[bar.default]
+background_opacity = 0.0
+capsule = true
+capsule_border = "on_surface"
+capsule_border_width = 1.5
+capsule_fill = "surface"
+capsule_foreground = "on_surface"
+capsule_padding = 7.0
+capsule_radius = 0
+capsule_thickness = 0.99999998137354851
+end = [ "group:g1", "group:g2", "group:g3", "group:g4", "tray", "group:g5" ]
+font_family = "JetBrainsMono Nerd Font"
+font_weight = 600
+margin_ends = 0
+padding = 12
+radius = 0
+start = [ "workspaces", "active_window" ]
+thickness = 26
+widget_spacing = 3
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "on_surface"
+    border_width = 1.5
+    enabled = true
+    fill = "surface"
+    foreground = "on_surface"
+    id = "g1"
+    members = [ "input_volume", "output_volume" ]
+    opacity = 1.0
+    padding = 7.0
+    radius = 0.0
+    widget_spacing = 4
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "on_surface"
+    border_width = 1.5
+    enabled = true
+    fill = "surface"
+    foreground = "on_surface"
+    id = "g2"
+    members = [ "network", "bluetooth" ]
+    opacity = 1.0
+    padding = 7.0
+    radius = 0.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "on_surface"
+    border_width = 1.5
+    enabled = true
+    fill = "surface"
+    foreground = "on_surface"
+    id = "g3"
+    members = [ "brightness", "battery", "power_profile" ]
+    opacity = 1.0
+    padding = 7.0
+    radius = 0.0
+    widget_spacing = 4
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "on_surface"
+    border_width = 1.5
+    enabled = true
+    fill = "surface"
+    foreground = "on_surface"
+    id = "g4"
+    members = [ "cpu", "ram" ]
+    opacity = 1.0
+    padding = 7.0
+    radius = 0.0
+    widget_spacing = 5
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "on_surface"
+    border_width = 1.5
+    enabled = true
+    fill = "surface"
+    foreground = "on_surface"
+    id = "g5"
+    members = [ "notifications", "session", "control-center" ]
+    opacity = 1.0
+    padding = 7.0
+    radius = 0.0
+    widget_spacing = 5
+
+[bluetooth]
+connection_notifications = true
+
+[control_center]
+circular_avatar = false
+hidden_tabs = [ "system", "weather", "calendar" ]
+shortcuts = []
+show_avatar_border = false
+show_session_button = false
+sidebar = "full"
+sidebar_section = "none"
+
+[desktop_widgets]
+enabled = false
+
+[idle]
+behavior_order = [ "lock", "screen-off", "suspend" ]
+pre_action_fade_seconds = 0
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = false
+    timeout = 600.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = false
+    locked_timeout = 30.0
+    timeout = 660.0
+
+    [idle.behavior.suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 1800.0
+
+[lockscreen]
+blur_intensity = 0.0
+enabled = true
+fingerprint = false
+lock_before_suspend = true
+transition = [ "stripes" ]
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@HDMI-A-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "HDMI-A-1"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = false
+        show_login_button = false
+        show_media = false
+        show_password_reveal = false
+        show_session_buttons = true
+        show_unlock_hint = false
+        show_weather = false
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 1018.0
+    output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
 [shell]
-# Replaces hyprpolkitagent: Noctalia registers as the polkit authentication
-# agent (password prompts for virt-manager, Proton VPN, pkexec...).
-# Don't run a second agent alongside it.
-polkit_agent = true
-
-# Noctalia runs as a systemd user service (configuration.nix), so apps opened
-# from its launcher/dock run as their own transient systemd units: they
-# survive a restart of the shell and get their own cgroup.
-# (Ignored, with a log warning, when Noctalia isn't started by systemd/uwsm.)
+clipboard_auto_paste = "off"
 launch_apps_as_systemd_services = true
+polkit_agent = true
+settings_expand_all_groups = true
+settings_window_translucent = true
+show_close_buttons = false
+time_format = "{:%H:%M:%S}"
 
-# Clipboard history (replaces cliphist): on by default, Super+Shift+V opens it.
-# clipboard_enabled = true
+    [shell.launcher]
+    auto_paste = "off"
+    categories = false
+    compact = true
+    layout = "simple"
 
-[shell.screenshot]
-# Replaces hyprshot. Your hyprland.lua binds pick clipboard vs file per call;
-# this is where saved screenshots go (same folder hyprshot used).
-directory = "~/Images/Screenshots"
+    [shell.panel]
+    control_center_position = "top_right"
+    open_near_click_control_center = true
+    session_position = "top_center"
 
-# ── Wallpaper (replaces hyprpaper / linux-wallpaper-engine) ─────────────────
+    [shell.screenshot]
+    directory = "~/Images/Screenshots"
+    show_region_dimensions = false
+
+    [shell.session]
+    show_shortcuts = false
+
+        [[shell.session.actions]]
+        action = "lock"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "1"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "logout"
+        countdown_seconds = 0.0
+        enabled = false
+        shortcut = "2"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "lock_and_suspend"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "3"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "reboot"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "4"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "shutdown"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "5"
+        variant = "destructive"
+
+[theme]
+builtin = "Ayu"
+community_palette = "Oxocarbon"
+mode = "dark"
+pure_black_dark = true
+source = "builtin"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "ghostty" ]
+
 [wallpaper]
-enabled = true
-# Folder the wallpaper picker and rotation read from. Put images here.
-# Empty would mean the XDG Pictures folder (~/Pictures without xdg-user-dirs).
 directory = "~/Images/Wallpapers"
-
-# [wallpaper.default]
-# path = "~/Images/Wallpapers/your-favourite.png"   # first wallpaper on a fresh start
-
-# [wallpaper.automation]
-# enabled = true            # rotate wallpapers
-# interval_seconds = 1800
-
-# ── Lock screen (replaces hyprlock) ─────────────────────────────────────────
-# Authenticates with the system `login` PAM service — no extra setup on NixOS.
-[lockscreen]
 enabled = true
-# Lock on logind PrepareForSleep, i.e. before every suspend/hibernate,
-# including closing the lid. This is why hyprland.lua has no lid bind.
-lock_before_suspend = true
+transition = [ "fade" ]
 
-# ── Idle (replaces hypridle) ────────────────────────────────────────────────
-# Uses ext-idle-notify; respects idle inhibitors (Noctalia's caffeine toggle,
-# and browsers/players inhibiting over D-Bus during video playback).
-[idle]
-behavior_order = ["lock", "screen-off", "suspend"]
-pre_action_fade_seconds = 2.0   # dim for 2 s before acting; any input cancels
+    [wallpaper.default]
+    path = "/nix/store/lbnhskv2r0krs54ybh4gwr9a3jpvq8pv-noctalia-5.4.1/share/noctalia/assets/noctalia-wallpaper.png"
 
-[idle.behavior.lock]
-timeout = 600                   # 10 min → lock
-action = "lock"
-enabled = true
+    [wallpaper.last]
+    path = "/nix/store/lbnhskv2r0krs54ybh4gwr9a3jpvq8pv-noctalia-5.4.1/share/noctalia/assets/noctalia-wallpaper.png"
 
-[idle.behavior.screen-off]
-timeout = 660                   # 11 min → screens off (back on when you return)
-action = "screen_off"
-locked_timeout = 30             # if you locked manually, blank after 30 s
-enabled = true
+[weather]
+enabled = false
 
-[idle.behavior.suspend]
-timeout = 1800                  # 30 min → lock and suspend
-action = "lock_and_suspend"
-enabled = false                 # set true to suspend on idle (lid close already suspends)
+[widget.clock]
+anchor = true
+format = "{:%a %d/%m/%Y %H:%M:%S}"
+
+[widget.control-center]
+glyph = "brand-snowflake"
+
+[widget.network]
+show_label = false
+vpn_status = "both"
+
+[widget.tray]
+detached_panel = true
+drawer = true
+
+[widget.workspaces]
+active_pill_size = 1.5
+focused_output_only = true
+inactive_pill_size = 1.5
+show_all_outputs = true

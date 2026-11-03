@@ -37,7 +37,7 @@ require("ibl").setup({})
 
 -- [[ Colorscheme ]]
 -- Load the colorscheme here. (Lives in colors/cyberpunk.* in this config folder.)
-vim.cmd.colorscheme("cyberpunk")
+-- vim.cmd.colorscheme("cyberpunk")
 
 vim.pack.add({ gh("folke/snacks.nvim") })
 require("snacks").setup({

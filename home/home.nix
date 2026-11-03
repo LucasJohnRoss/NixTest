@@ -32,6 +32,7 @@ let
     "nvim"
     "yazi"
     "btop"
+    "tmux"
     "starship.toml" # a single file, not a folder — copy ~/.config/starship.toml if you have one
   ];
 
@@ -76,6 +77,7 @@ in
     # ---- Terminal & CLI ----------------------------------------------------
     # (bat, eza and fzf are installed via their programs.* modules in section 6)
     ghostty
+    tmux
     btop
     # neovim itself + LSPs/formatters: see section 9
     ripgrep # Telescope live grep in Neovim
@@ -315,17 +317,6 @@ in
       init.defaultBranch = "main";
       pull.rebase = true;
     };
-  };
-
-  programs.tmux = {
-    enable = true;
-    mouse = true;
-    keyMode = "vi";
-    baseIndex = 1;
-    escapeTime = 0; # no Esc delay in Neovim
-    historyLimit = 50000;
-    terminal = "tmux-256color";
-    # extraConfig = '' ... paste your existing tmux.conf here ... '';
   };
 
   # Yazi: Home Manager adds the `y` shell wrapper (cd to the dir you quit in).

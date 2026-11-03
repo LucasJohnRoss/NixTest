@@ -329,3 +329,5 @@ hl.workspace_rule({ workspace = "special:systemInfoWorkspace", on_created_empty 
 --hl.workspace_rule({ workspace = "special:browserWorkspace", on_created_empty = browser })
 --hl.workspace_rule({ workspace = "special:notionWorkspace", on_created_empty = notion })
 
+
+

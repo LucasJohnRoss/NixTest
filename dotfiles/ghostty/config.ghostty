@@ -1,5 +1,4 @@
 confirm-close-surface = false
-theme = cyberpunk
 font-family = "JetBrainsMono Nerd Font"
 
 #Sends escape sequences on Ctrl+Tab and Ctrl+Shift+Tab, used by tmux
@@ -7,3 +6,4 @@ keybind = ctrl+tab=esc:[27;5;9~
 keybind = ctrl+shift+tab=esc:[27;6;9~
 #Unique escape sequences for Ctrl+Shift+Backspace for line deletion in zsh
 keybind = ctrl+shift+backspace=csi:8;6u
+theme = noctalia
