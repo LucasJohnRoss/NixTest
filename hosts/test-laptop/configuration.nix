@@ -29,6 +29,14 @@ let
     # Output of: sudo btrfs inspect-internal map-swapfile -r /swap/swapfile
     resumeOffset = "CHANGEME";
   };
+
+  # ---------------------------------------------------------------------------
+  # AUTOLOGIN SWITCH
+  # true: boot straight into Hyprland after the LUKS passphrase (the disk
+  # passphrase is then the only password at boot). The greeter still appears
+  # after you log out. See section 9 for the keyring caveat.
+  # ---------------------------------------------------------------------------
+  autoLogin = true;
 in
 {
   # ===========================================================================
@@ -214,7 +222,7 @@ in
     hostName = vars.hostname;
 
     networkmanager = {
-      enable = true; # used by nm-applet, nm-connection-editor, wifitui, Proton VPN
+      enable = true; # used by Noctalia's network panel, nm-connection editor, Proton VPM
       dns = "systemd-resolved"; # hand DNS to resolved (below)
     };
 
@@ -289,7 +297,6 @@ in
     enable = true;
     powerOnBoot = true;
   };
-  services.blueman.enable = true; # blueman-manager + blueman-applet (tray)
 
   # ===========================================================================
   # 9. LOGIN SCREEN, HYPRLAND, NOCTALIA SHELL & DESKTOP PLUMBING
@@ -307,7 +314,7 @@ in
     # (Settings → Security → Noctalia Greeter → Sync Now: wallpaper, colours).
     settings = {
       # The session's Name= as shown in the picker (from hyprland-uwsm.desktop)
-      session.default = "Hyprland (UWSM)";
+      session.default = "Hyprland (uwsm-managed)";
       user.default = vars.username; # open straight on your password field
       keyboard.layout = vars.keyboardLayout; # UK layout for the password, same as the TTY
     };
@@ -327,6 +334,10 @@ in
   # Not read by the greeter (it uses session.default above), but NixOS checks
   # the name exists — a useful guard against a typo'd session name.
   services.displayManager.defaultSession = "hyprland-uwsm";
+  services.greetd.settings.initial_session = lib.mkIf autoLogin {
+    user = vars.username;
+    command = "${lib.getExe config.programs.uwsm.package} start -e -D Hyprland hyprland.desktop";
+  };
 
   programs.hyprland = {
     enable = true;
@@ -370,11 +381,10 @@ in
 
   # Secret Service keyring — Proton VPN and Brave store credentials here.
   # This module adds the keyring to the `login` PAM service, which greetd
-  # includes, so your greeter login password unlocks it automatically.
+  # includes, so logging in through the greeter unlocks it automatically.
+  # (Autologin can't — see the autologin block above.)
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true; # GUI to inspect the keyring
-
-  # (nm-applet now runs as a Home Manager user service — home.nix section 7)
 
   # ===========================================================================
   # 10. FILES: Thunar, automounting, thumbnails, AppImages, Flatpak
@@ -443,6 +453,7 @@ in
       "wheel" # sudo
       "networkmanager" # manage Wi-Fi without sudo
       "docker" # docker without sudo (NB: root-equivalent)
+      "libvirtd"
       "kvm"
     ];
     # Password: the one set in the GUI installer carries over; change it any time with `passwd`.
