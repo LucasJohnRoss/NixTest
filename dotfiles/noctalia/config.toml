@@ -281,12 +281,6 @@ directory = "~/Images/Wallpapers"
 enabled = true
 transition = [ "fade" ]
 
-    [wallpaper.default]
-    path = "/nix/store/lbnhskv2r0krs54ybh4gwr9a3jpvq8pv-noctalia-5.4.1/share/noctalia/assets/noctalia-wallpaper.png"
-
-    [wallpaper.last]
-    path = "/nix/store/lbnhskv2r0krs54ybh4gwr9a3jpvq8pv-noctalia-5.4.1/share/noctalia/assets/noctalia-wallpaper.png"
-
 [weather]
 enabled = false
 
