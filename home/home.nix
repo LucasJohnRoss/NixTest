@@ -68,10 +68,8 @@ in
     # dunst, hyprlock, hypridle, hyprpolkitagent and cliphist.)
     libnotify # notify-send (Noctalia is the notification daemon that shows them)
     wl-clipboard # wl-copy / wl-paste in scripts and the terminal
-    wifitui # TUI Wi-Fi manager (NetworkManager backend)
     networkmanagerapplet # nm-connection-editor (Noctalia's network panel covers day-to-day Wi-Fi)
     pavucontrol # full audio mixer GUI, for what Noctalia's control center doesn't cover
-    playerctl # media keys in hyprland.lua (play-pause, next, previous)
     brightnessctl # backlight keys — works without the `video` group via logind
 
     # ---- Terminal & CLI ----------------------------------------------------
@@ -124,6 +122,7 @@ in
     # switch to a nixpkgs branch that doesn't have it yet.
     (pkgs.brave-origin or pkgs.brave)
     proton-vpn # official Proton VPN GTK app (formerly `protonvpn-gui`)
+    bitwarden-desktop
     notion-electron # same anechunaev/notion-electron app as your AppImage, but packaged
     qbittorrent
     vlc
@@ -160,8 +159,6 @@ in
   # ===========================================================================
   # 5. SHELL — zsh
   # ===========================================================================
-  # Replaces oh-my-zsh: your plugins (zsh-autosuggestions, zsh-syntax-highlighting,
-  # git) are loaded directly, and the oh-my-zsh defaults you'd notice missing
   # (completion menu, key bindings, history and directory options) are set
   # explicitly below. The prompt is starship (section 6).
   programs.zsh = {
@@ -194,16 +191,6 @@ in
       "COMPLETE_IN_WORD"
       "ALWAYS_TO_END"
       "AUTO_MENU"
-    ];
-
-    # oh-my-zsh's git plugin on its own (~200 aliases: gst, gco, gcmsg, gp,
-    # glog...), loaded straight from nixpkgs' copy without the framework
-    plugins = [
-      {
-        name = "omz-git";
-        src = "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git";
-        file = "git.plugin.zsh";
-      }
     ];
 
     shellAliases = {
@@ -277,20 +264,6 @@ in
         autoload -U edit-command-line
         zle -N edit-command-line
         bindkey '^X^E' edit-command-line
-
-        # ---- Helpers the oh-my-zsh git plugin expects --------------------------
-        # (normally provided by oh-my-zsh's lib/git.zsh; used by ggpush, ggpull...)
-        __git_prompt_git() { GIT_OPTIONAL_LOCKS=0 command git "$@"; }
-        git_current_branch() {
-          local ref
-          ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2>/dev/null)
-          local ret=$?
-          if [[ $ret != 0 ]]; then
-            [[ $ret == 128 ]] && return
-            ref=$(__git_prompt_git rev-parse --short HEAD 2>/dev/null) || return
-          fi
-          echo ''${ref#refs/heads/}
-        }
       ''
 
       # Last: anything that must see the aliases above
@@ -391,15 +364,6 @@ in
   # (programs.noctalia.systemd). It also provides the polkit agent and
   # clipboard history, which hyprpolkitagent and cliphist used to.
   # ===========================================================================
-  services.network-manager-applet.enable = true; # nm-applet tray icon (moved from system config)
-  # Makes nm-applet use the StatusNotifier tray protocol (--indicator), the
-  # kind Noctalia's tray shows. (Despite the name, nothing X11-specific.)
-  xsession.preferStatusNotifierItems = true;
-
-  # Tracks the most recently active media player, so `playerctl play-pause`
-  # (media keys in hyprland.lua) controls whatever you used last
-  services.playerctld.enable = true;
-
   services.udiskie = {
     enable = true; # automount USB drives
     automount = true;
@@ -433,7 +397,7 @@ in
   qt = {
     enable = true;
     platformTheme.name = "adwaita";
-    style.name = "advaita-dark";
+    style.name = "adwaita-dark";
   };
 
   dconf.settings = {
