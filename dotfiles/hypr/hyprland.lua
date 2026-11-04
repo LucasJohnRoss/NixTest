@@ -17,11 +17,10 @@ hl.monitor({
 local terminal    = "ghostty"
 local fileManager = terminal .. " -e yazi"
 local editor      = terminal .. " -e nvim"
-local calculator  = "flatpak run io.github.Qalculate"
+local calculator  = "gnome-calculator"
 local systemInfo  = terminal .. " -e btop"
-local passwordManager = "bitwarden-desktop"
+local passwordManager = "bitwarden"
 local browser = "brave-origin"
-local notion = "/home/lucas/.local/share/AppImages/Notion_Electron-2.4.1-x86_64.AppImage"
 
 -- Noctalia shell IPC: every shell action is `noctalia msg <command>`
 -- (list them with `noctalia msg --help`)
@@ -34,11 +33,11 @@ local noctalia = "noctalia msg "
 
 -- Nothing to start here on NixOS. Everything that used to be exec'd is now a
 -- systemd user service started with the UWSM session:
---   noctalia (bar, wallpaper, notifications, polkit agent, clipboard, idle/lock)
+--   noctalia (bar, wallpaper, notifications, polkit agent, clipboard, idle/lock,
+--             Wi-Fi, Bluetooth, media control)
 --                       -> programs.noctalia.systemd in configuration.nix
---   nm-applet, udiskie  -> home.nix section 7
+--   udiskie             -> home.nix section 7
 --   xdg-desktop-portal-hyprland -> started on demand over D-Bus
---   blueman-applet      -> XDG autostart, run by UWSM
 --
 -- On a machine WITHOUT the systemd service (e.g. back on CachyOS), uncomment:
 -- hl.on("hyprland.start", function ()
@@ -197,7 +196,7 @@ hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(editor))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(passwordManager))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(calculator, {float=true}))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(calculator))
 
 --- Noctalia shell ---
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd(noctalia .. "panel-toggle launcher"))  -- was rofi -show drun
@@ -256,11 +255,11 @@ hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_S
 hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
--- Requires playerctl
-hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
+
+hl.bind("XF86AudioNext",  hl.dsp.exec_cmd(noctalia .. "media next"),       { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd(noctalia .. "media toggle"), { locked = true })
+hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd(noctalia .. "media toggle"), { locked = true })
+hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd(noctalia .. "media previous"),   { locked = true })
 
 -- Lid closure: no bind needed any more. logind suspends on lid close
 -- (configuration.nix section 5) and Noctalia locks before the system sleeps
@@ -311,6 +310,14 @@ hl.window_rule({
     float = true,
     size  = { 1080, 920 },
 })
+
+-- GNOME Calculator always floats, however it's launched
+hl.window_rule({
+    name = "float-calculator",
+    match = { class = "org.gnome.Calculator" },
+    float = true,
+    })
+
 
 -- Blur behind Noctalia's bar, panels, notifications and OSD, and leave their
 -- animations to Noctalia (Hyprland's layer animations would double up)
